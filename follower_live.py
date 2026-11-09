@@ -5,23 +5,31 @@ USERNAME = os.environ["SCRATCH_USERNAME"]
 PASSWORD = os.environ["SCRATCH_PASSWORD"]
 PROJECT_ID = "1437662848"
 
-print("Scratchにログイン中...")
+cloud = None
 
-session = sa.login(USERNAME, PASSWORD)
+try:
+    print("Scratchにログイン中...", flush=True)
 
-print("Scratchに接続成功！")
+    session = sa.login(USERNAME, PASSWORD)
 
-user = session.connect_user(USERNAME)
-count = user.follower_count()
+    print("Scratchに接続成功！", flush=True)
 
-print(f"現在のフォロワー数: {count}")
+    user = session.connect_user(USERNAME)
+    count = user.follower_count()
 
-cloud = session.connect_cloud(PROJECT_ID)
+    print(f"現在のフォロワー数: {count}", flush=True)
 
-print("送信前:", cloud.get_var("followers"))
+    cloud = session.connect_cloud(PROJECT_ID)
 
-cloud.set_var("followers", str(count))
+    print("送信前:", cloud.get_var("followers"), flush=True)
 
-print("送信後:", cloud.get_var("followers"))
+    cloud.set_var("followers", str(count))
 
-print("Scratchに送信処理完了！")
+    print("送信処理完了！", flush=True)
+
+finally:
+    if cloud is not None:
+        cloud.disconnect()
+        print("Scratchとの接続を終了しました！", flush=True)
+
+print("すべての処理が完了しました！", flush=True)
