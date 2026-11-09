@@ -17,6 +17,11 @@ count = user.follower_count()
 print(f"現在のフォロワー数: {count}")
 
 cloud = session.connect_cloud(PROJECT_ID)
+
+print("送信前:", cloud.get_var("followers"))
+
 cloud.set_var("followers", str(count))
 
-print("Scratchに送信成功！")
+print("送信後:", cloud.get_var("followers"))
+
+print("Scratchに送信処理完了！")
