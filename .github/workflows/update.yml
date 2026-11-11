@@ -3,8 +3,8 @@ name: Scratch Follower Auto Update
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
-      timezone: "Asia/Tokyo"
+- cron: "7,37 * * * *"
+  timezone: "Asia/Tokyo"
   workflow_dispatch:
 
 jobs:
